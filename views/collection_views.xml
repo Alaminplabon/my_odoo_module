@@ -1,0 +1,52 @@
+<odoo>
+    <record id="view_collection_form" model="ir.ui.view">
+        <field name="name">collection.form</field>
+        <field name="model">my_odoo_module.collection</field>
+        <field name="arch" type="xml">
+            <form string="Collection">
+                <sheet>
+                    <group>
+                        <field name="owner"/>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="number_of_items"/>
+                        <field name="category"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_collection_tree" model="ir.ui.view">
+        <field name="name">collection.tree</field>
+        <field name="model">my_odoo_module.collection</field>
+        <field name="arch" type="xml">
+            <tree string="Collections">
+                <field name="name"/>
+                <field name="owner"/>
+                <field name="number_of_items"/>
+                <field name="category"/>
+            </tree>
+        </field>
+    </record>
+
+    <menuitem id="menu_collection_root" name="Collections" sequence="1"/>
+    <menuitem id="menu_collection" parent="menu_collection_root" name="Collections" action="action_collection"/>
+   
+    <record id="action_collection" model="ir.actions.act_window">
+        <field name="name">Collections</field>
+        <field name="res_model">my_odoo_module.collection</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <act_window id="import_collections_action" name="Import Collections" 
+                res_model="my_odoo_module.collection" 
+                view_mode="form" 
+                binding_model_id="my_odoo_module.collection"
+                target="new"
+                context="{'default_is_import': True}"/>
+
+    <menuitem id="import_collections_menu" parent="menu_collection_root" name="Import Collections" action="import_collections_action"/>
+</odoo>
+
